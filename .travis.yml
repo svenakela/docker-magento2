@@ -1,0 +1,22 @@
+services:
+  - docker
+
+env:
+  global:
+    - DOCKER_IP=localhost
+  matrix:
+    - IMAGE=7.0-cli
+    - IMAGE=7.0-fpm
+    - IMAGE=nginx
+
+before_install:
+  - sudo add-apt-repository 'deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse' -y
+  - sudo apt-get -qq update
+
+install:
+  - sudo apt-get install -y shellcheck
+
+script:
+  - bash tests/bash/test-bash-scripts.sh
+  - bash tests/docker/test-docker-build.sh
+  - bash tests/specific/test-specific.sh
