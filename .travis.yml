@@ -1,0 +1,14 @@
+services:
+  - docker
+
+env:
+  global:
+    - DOCKER_IP=localhost
+  matrix:
+    - PHP_VERSION=7.0 IMAGE_FLAVOUR=cli
+    - PHP_VERSION=7.1 IMAGE_FLAVOUR=cli
+    - PHP_VERSION=7.0 IMAGE_FLAVOUR=fpm
+    - PHP_VERSION=7.1 IMAGE_FLAVOUR=fpm
+
+script:
+  - travis_wait 20 bash test-runner.sh
